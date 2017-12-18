@@ -52,7 +52,56 @@ PHP_FUNCTION(confirm_innerval_compiled)
    function definition, where the functions purpose is also documented. Please
    follow this convention for the convenience of others editing your code.
 */
+/* {{{ proto string is_interned_string(string str) */
+PHP_FUNCTION(is_interned_string)
+{
+	zend_string *str;
 
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "S", &str) == FAILURE) {
+		return;
+	}
+
+	if (ZSTR_IS_INTERNED(str)){
+		RETURN_TRUE;	
+	}
+
+	RETURN_FALSE;
+}
+/* }}} */
+
+/* {{{ proto string is_permanent_string(string str) */
+PHP_FUNCTION(is_permanent_string)
+{
+	zend_string *str;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "S", &str) == FAILURE) {
+		return;
+	}
+
+	if ((GC_FLAGS(str) & IS_STR_PERMANENT)){
+		RETURN_TRUE;	
+	}
+
+	RETURN_FALSE;
+}
+/* }}} */
+
+/* {{{ proto string is_persistent_string(string str) */
+PHP_FUNCTION(is_persistent_string)
+{
+	zend_string *str;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS(), "S", &str) == FAILURE) {
+		return;
+	}
+
+	if ((GC_FLAGS(str) & IS_STR_PERSISTENT)){
+		RETURN_TRUE;	
+	}
+
+	RETURN_FALSE;
+}
+/* }}} */
 
 /* {{{ php_innerval_init_globals
  */
@@ -128,6 +177,9 @@ PHP_MINFO_FUNCTION(innerval)
  */
 const zend_function_entry innerval_functions[] = {
 	PHP_FE(confirm_innerval_compiled,	NULL)		/* For testing, remove later. */
+	PHP_FE(is_interned_string,	NULL)
+	PHP_FE(is_permanent_string,	NULL)
+	PHP_FE(is_persistent_string,	NULL)
 	PHP_FE_END	/* Must be the last line in innerval_functions[] */
 };
 /* }}} */
