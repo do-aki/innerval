@@ -13,9 +13,9 @@ dnl [  --with-innerval             Include innerval support])
 
 dnl Otherwise use enable:
 
-dnl PHP_ARG_ENABLE(innerval, whether to enable innerval support,
-dnl Make sure that the comment is aligned:
-dnl [  --enable-innerval           Enable innerval support])
+PHP_ARG_ENABLE(innerval, whether to enable innerval support,
+Make sure that the comment is aligned:
+[  --enable-innerval           Enable innerval support])
 
 if test "$PHP_INNERVAL" != "no"; then
   dnl Write more examples of tests here...
